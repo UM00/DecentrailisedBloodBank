@@ -13,9 +13,8 @@ export default function DonateBlood({visible,onClose}) {
           console.error('Blood Type is required.');
           return;
         }
-  
         // Perform your fetch here to send the blood type to the backend
-        const response = await fetch('your-backend-api-endpoint', {
+        const response = await fetch('http://localhost:3001/transferBlood', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

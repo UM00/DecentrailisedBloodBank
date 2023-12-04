@@ -9,7 +9,7 @@ export default function AddBloodBank({visible,onClose}) {
 
     const handleOk = async () => {
       try {
-        const response = await fetch('your-backend-api-endpoint', {
+        const response = await fetch('http://localhost:3001/addBloodBank', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

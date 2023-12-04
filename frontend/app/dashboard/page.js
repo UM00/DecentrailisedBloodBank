@@ -5,12 +5,14 @@ import DonateBlood from '../Components/DonateBlood';
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-  //const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
 
   const [isBloodBankModalVisible, setIsBloodBankModalVisible] = useState(false);
   const [isBloodTypeModalVisible, setIsBloodTypeModalVisible] = useState(false);
+
+  const token = localStorage.getItem('token');
 
   const showBloodBankModal = () => {
     setIsBloodBankModalVisible(true);
@@ -26,46 +28,42 @@ const Page = () => {
   };
 
   const handleLogout=()=>{
+    localStorage.removeItem('token');
     router.push("/")
   }
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/user/getUser', {
+          headers: {
+            token:token
+          },
+        });
 
-  const userData = {
-    email: "john.doe@example.com",
-    password: "********", // You may not want to display the password
-    name: "John Doe",
-    age: 30,
-    bloodGroup: "A+",
-    weight: 70,
-  };
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setUserData(data);
+        } else {
+          const errorData = await response.json();
+          setError(errorData.message);
+        }
+      } catch (error) {
+        setError('An error occurred while fetching user data.');
+      }
+    };
 
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       try {
-//         const response = await fetch('your-backend-api-endpoint');
+    fetchUserData();
+  }, []);
 
-//         if (response.ok) {
-//           const data = await response.json();
-//           setUserData(data);
-//         } else {
-//           const errorData = await response.json();
-//           setError(errorData.message);
-//         }
-//       } catch (error) {
-//         setError('An error occurred while fetching user data.');
-//       }
-//     };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
-//     fetchUserData();
-//   }, []);
-
-//   if (error) {
-//     return <div>Error: {error}</div>;
-//   }
-
-//   if (!userData) {
-//     return <div>Loading...</div>;
-//   }
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -102,7 +100,7 @@ const Page = () => {
               </div>
               <div>
                 <p className="text-white font-bold text-lg">Blood Group:</p>
-                <p className="text-gray-800 text-lg font-semibold">{userData.bloodGroup}</p>
+                <p className="text-gray-800 text-lg font-semibold">{userData.bloodgroup}</p>
               </div>
               <div>
                 <p className="text-white font-bold text-lg">Weight:</p>

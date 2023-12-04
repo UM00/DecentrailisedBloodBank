@@ -6,7 +6,7 @@ module.exports = async function (callback) {
     const bloodBankInstance = await BloodBank.deployed();
 
     // Add a blood bank
-    await bloodBankInstance.addBloodBank('0x71C7656EC7ab88b098defB751B7401B5f6d8976F', 'NewBloodBank');
+    await bloodBankInstance.addBloodBank('0x71C7656EC7ab88b098defB751B7401B5f6d8976F', 'saim');
 
     // You can add more blood banks here using the same function
     await bloodBankInstance.transferBlood('0x71C7656EC7ab88b098defB751B7401B5f6d8976F', 1000);

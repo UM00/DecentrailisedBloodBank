@@ -16,7 +16,7 @@ export default function page() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const credentials = { email, password };
-    const loginAPI=""  //add API here
+    const loginAPI="http://localhost:3001/user/login"
     try {
       const response = await fetch(loginAPI, {
         method: "POST",
@@ -30,7 +30,8 @@ export default function page() {
         response
           .json()
           .then((data) => {
-            //router.push("/");
+            localStorage.setItem('token', data.token);
+            router.push("/dashboard");
           })
           .catch((error) => {
             console.error("Error parsing JSON response:", error);

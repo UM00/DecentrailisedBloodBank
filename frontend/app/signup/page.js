@@ -8,7 +8,7 @@ export default function Page() {
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [bloodGroup, setBloodGroup] = useState("");
+  const [bloodgroup, setBloodGroup] = useState("");
   const [weight, setWeight] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -32,11 +32,11 @@ export default function Page() {
       password,
       name,
       age,
-      bloodGroup,
+      bloodgroup,
       weight,
     };
 
-    const signUpAPI=""
+    const signUpAPI="http://localhost:3001/user/signup";
 
     try {
       const response = await fetch(signUpAPI, {
@@ -52,7 +52,7 @@ export default function Page() {
           .json()
           .then((data) => {
             // Redirect or handle successful signup
-            //router.push("/login");
+            router.push("/login");
           })
           .catch((error) => {
             console.error("Error parsing JSON response:", error);
@@ -136,7 +136,7 @@ export default function Page() {
           <input
             type="text"
             className="rounded w-[300px] text-lg h-10 p-1 text-black"
-            value={bloodGroup}
+            value={bloodgroup}
             onChange={(e) => setBloodGroup(e.target.value)}
           />
         </div>

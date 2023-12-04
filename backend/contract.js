@@ -1,4 +1,4 @@
-const Web3 = require('Web3');
+const {Web3} = require('Web3');
 const web3 = new Web3('http://127.0.0.1:7545'); // Replace with your network URL
 const contractAddress = '0x37eA78B2E216f63ee3f56038cf98ebA695f1c8c1'; // Replace with your deployed contract address
 const contractABI = [
